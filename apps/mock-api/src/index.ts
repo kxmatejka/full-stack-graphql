@@ -15,20 +15,21 @@ const postDefinition = gql`
 `
 
 const authorDefinition = gql`
-  enum Sex {
-    MALE
-    FEMALE
+  enum Role {
+    User
+    Moderator
+    Administrator
   }
 
   type Author {
     id: ID!
     name: String!
     posts: [Post]
-    sex: Sex
+    role: Role
   }
 `
 
-const schemaDefinition = gql`  
+const schemaDefinition = gql`
   type Query
 
   schema {
