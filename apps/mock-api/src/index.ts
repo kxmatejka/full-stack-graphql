@@ -79,10 +79,9 @@ const schemaDefinition = gql`
 const server = new ApolloServer({
   typeDefs: [postDefinition, authorDefinition, searchDefinition, schemaDefinition],
   mocks: {
-    Query: () => ({
-      posts: {
-        edges: new MockList([3, 10])
-      }
+    PostConnection: () => ({
+      totalCount: () => 5,
+      edges: () => new MockList(5)
     }),
     Post: () => ({
       title: casual.title,
