@@ -2,6 +2,17 @@ import {ApolloServer, gql, MockList} from 'apollo-server'
 import casual = require('casual')
 
 const postDefinition = gql`
+  type PostConnection {
+    totalCount: Int!
+    edges: [PostEdge]
+    pageInfo: PageInfo
+  }
+
+  type PostEdge {
+    node: Post
+    cursor: ID!
+  }
+
   type Post {
     id: ID!
     title: String!
@@ -10,7 +21,7 @@ const postDefinition = gql`
   }
 
   extend type Query {
-    posts: [Post]
+    posts: PostConnection
   }
 `
 
@@ -30,6 +41,11 @@ const authorDefinition = gql`
 `
 
 const schemaDefinition = gql`
+  type PageInfo {
+    endCursor: ID
+    hasNextPage: Boolean
+  }
+
   type Query
 
   schema {
@@ -41,7 +57,9 @@ const server = new ApolloServer({
   typeDefs: [postDefinition, authorDefinition, schemaDefinition],
   mocks: {
     Query: () => ({
-      posts: () => new MockList([1, 5])
+      posts: {
+        edges: new MockList([3, 10])
+      }
     }),
     Post: () => ({
       title: casual.title,
