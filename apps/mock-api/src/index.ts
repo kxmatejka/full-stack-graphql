@@ -1,7 +1,7 @@
 import {ApolloServer, gql, MockList} from 'apollo-server'
 import casual = require('casual')
 
-const schemaDefinition = gql`
+const postDefinition = gql`
   type Post {
     id: ID!
     title: String!
@@ -9,25 +9,31 @@ const schemaDefinition = gql`
     author: Author!
   }
 
+  extend type Query {
+    posts: [Post]
+  }
+`
+
+const authorDefinition = gql`
   type Author {
     id: ID!
     name: String!
     posts: [Post]
   }
+`
 
-  type RootQuery {
-    posts: [Post]
-  }
+const schemaDefinition = gql`  
+  type Query
 
   schema {
-    query: RootQuery
+    query: Query
   }
 `
 
 const server = new ApolloServer({
-  typeDefs: schemaDefinition,
+  typeDefs: [postDefinition, authorDefinition, schemaDefinition],
   mocks: {
-    RootQuery: () => ({
+    Query: () => ({
       posts: () => new MockList([1, 5])
     }),
     Post: () => ({
