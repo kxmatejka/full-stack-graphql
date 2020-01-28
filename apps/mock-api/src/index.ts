@@ -15,10 +15,16 @@ const postDefinition = gql`
 `
 
 const authorDefinition = gql`
+  enum Sex {
+    MALE
+    FEMALE
+  }
+
   type Author {
     id: ID!
     name: String!
     posts: [Post]
+    sex: Sex
   }
 `
 
