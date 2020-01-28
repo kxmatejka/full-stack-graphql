@@ -21,11 +21,22 @@ const postDefinition = gql`
   }
 
   extend type Query {
-    posts: PostConnection
+    posts(first: Int): PostConnection
   }
 `
 
 const authorDefinition = gql`
+  type AuthorConnection {
+    totalCount: Int!
+    edges: [AuthorEdge]
+    pageInfo: PageInfo
+  }
+
+  type AuthorEdge {
+    node: Author
+    cursor: ID!
+  }
+
   enum Role {
     User
     Moderator
@@ -35,8 +46,12 @@ const authorDefinition = gql`
   type Author {
     id: ID!
     name: String!
-    posts: [Post]
+    posts(first: Int): PostConnection
     role: Role
+  }
+  
+  extend type Query {
+    authors(first: Int): AuthorConnection
   }
 `
 
