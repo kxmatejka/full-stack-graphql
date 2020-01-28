@@ -55,6 +55,14 @@ const authorDefinition = gql`
   }
 `
 
+const searchDefinition = gql`
+  union SearchResult = Author | Post
+
+  extend type Query {
+    search(phrase: String!): [SearchResult]
+  }
+`
+
 const schemaDefinition = gql`
   type PageInfo {
     endCursor: ID
@@ -69,7 +77,7 @@ const schemaDefinition = gql`
 `
 
 const server = new ApolloServer({
-  typeDefs: [postDefinition, authorDefinition, schemaDefinition],
+  typeDefs: [postDefinition, authorDefinition, searchDefinition, schemaDefinition],
   mocks: {
     Query: () => ({
       posts: {
