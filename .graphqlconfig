@@ -1,0 +1,15 @@
+{
+  "name": "full-stack-graphql",
+  "projects": {
+    "graphql-apollo": {
+      "includes": [
+        "apps/graphql-apollo/**"
+      ]
+    },
+    "graphql-mock": {
+      "includes": [
+        "apps/graphql-mock/**"
+      ]
+    }
+  }
+}
