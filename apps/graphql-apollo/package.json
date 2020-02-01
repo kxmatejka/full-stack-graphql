@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --config nodemon.json"
+    "start": "nodemon --config nodemon.json",
+    "docker-compose:up": "docker-compose -f docker/docker-compose.yml up -d",
+    "docker-compose:stop": "docker-compose -f docker/docker-compose.yml stop"
   },
   "keywords": [],
   "author": "",
